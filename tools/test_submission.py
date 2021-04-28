@@ -1,20 +1,19 @@
 from __future__ import division
 
-from tools.model import load_model
-
 from config.configs_kf import *
 from lib.utils.visual import *
 
 import torchvision.transforms as st
 from sklearn.metrics import confusion_matrix
 import numpy as np
-from tqdm import tqdm_notebook as tqdm
+from tqdm import tqdm
 
-from tools.ckpt import *
+from model import load_model
+from ckpt import *
 import time
 import itertools
 
-
+test_root = '/home/dshih/data/kaggle/vision-for-agriculture/data/test'
 
 output_path = os.path.join('../submission', 'results_ckpt1_ckpt2_tta')
 
@@ -130,7 +129,7 @@ def tta_real_test(nets, all=False, labels=land_classes, norm=False,
         pred = np.argmax(pred, axis=-1)
 
         for key in ['boundaries', 'masks']:
-            pred = pred * np.array(cv2.imread(os.path.join('/media/liu/diskb/data/Agriculture-Vision/test', key, id+'.png'), -1) / 255, dtype=int)
+            pred = pred * np.array(cv2.imread(os.path.join(test_root, key, id+'.png'), -1) / 255, dtype=int)
         filename = './{}.png'.format(id)
         cv2.imwrite(os.path.join(output_path, filename), pred)
 
@@ -230,7 +229,7 @@ def grouper(n, iterable):
 
 def check_mkdir(dir_name):
     if not os.path.exists(dir_name):
-        os.mkdir(dir_name)
+        os.makedirs(dir_name)
 
 
 if __name__ == '__main__':
