@@ -5,11 +5,13 @@ from pretrainedmodels import se_resnext50_32x4d, se_resnext101_32x4d
 from lib.net.scg_gcn import *
 
 
-def load_model(name='MSCG-Rx50', classes=7, node_size=(32,32)):
+def load_model(name='MSCG-Rx50', classes=7, node_size=(32,32), pretrained=True):
     if name == 'MSCG-Rx50':
-        net = rx50_gcn_3head_4channel(out_channels=classes)
+        net = rx50_gcn_3head_4channel(
+            out_channels=classes, nodes=node_size, pretrained=pretrained)
     elif name == 'MSCG-Rx101':
-        net = rx101_gcn_3head_4channel(out_channels=classes)
+        net = rx101_gcn_3head_4channel(
+            out_channels=classes, nodes=node_size, pretrained=pretrained)
     else:
         print('not found the net')
         return -1
@@ -27,7 +29,12 @@ class rx50_gcn_3head_4channel(nn.Module):
         self.node_size = nodes
         self.num_cluster = out_channels
 
-        resnet = se_resnext50_32x4d()
+        if pretrained:
+            resnet = se_resnext50_32x4d()
+        else:
+            resnet = se_resnext50_32x4d(pretrained=None)
+            print('NOTE: No pretraining')
+
         self.layer0, self.layer1, self.layer2, self.layer3, = \
             resnet.layer0, resnet.layer1, resnet.layer2, resnet.layer3
 
@@ -105,7 +112,12 @@ class rx101_gcn_3head_4channel(nn.Module):
         self.node_size = nodes
         self.num_cluster = out_channels
 
-        resnet = se_resnext101_32x4d()
+        if pretrained:
+            resnet = se_resnext101_32x4d()
+        else:
+            resnet = se_resnext101_32x4d(pretrained=None)
+            print('NOTE: No pretraining')
+
         self.layer0, self.layer1, self.layer2, self.layer3, = \
             resnet.layer0, resnet.layer1, resnet.layer2, resnet.layer3
 
