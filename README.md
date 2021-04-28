@@ -58,7 +58,8 @@ Agriculture-Vision
 ## Train with a single GPU
 
 ```
-CUDA_VISIBLE_DEVICES=0 python ./tools/train_R50.py  # trained weights ckpt1
+cd tools
+CUDA_VISIBLE_DEVICES=0 python train_R50.py  # trained weights ckpt1
 # train_R101.py 								 # trained weights, ckpt2
 # train_R101_k31.py 							  # trained weights, ckpt3
 ```
