@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split, KFold
 import cv2
 
 # change DATASET ROOT to your dataset path
-DATASET_ROOT = '/media/liu/diskb/data/Agriculture-Vision'
+DATASET_ROOT = '/home/dshih/data/kaggle/vision-for-agriculture/data'
 
 TRAIN_ROOT = os.path.join(DATASET_ROOT, 'train')
 VAL_ROOT = os.path.join(DATASET_ROOT, 'val')
