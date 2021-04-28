@@ -1,4 +1,4 @@
-from tools.model import *
+from model import *
 from config.configs_kf import *
 
 # score 0.547, no TTA
@@ -7,8 +7,9 @@ ckpt1 = {
     'data': 'Agriculture',
     'bands': ['NIR','RGB'],
     'nodes': (32,32),
-    'snapshot': '../ckpt/epoch_8_loss_0.99527_acc_0.82278_acc-cls_0.60967_'
-                'mean-iu_0.48098_fwavacc_0.70248_f1_0.62839_lr_0.0000829109.pth'
+    #'snapshot': '../ckpt/epoch_8_loss_0.99527_acc_0.82278_acc-cls_0.60967_'
+    #            'mean-iu_0.48098_fwavacc_0.70248_f1_0.62839_lr_0.0000829109.pth'
+    'snapshot': '../ckpt/epoch_17_loss_0.93258_acc_0.83161_acc-cls_0.66267_mean-iu_0.51705_fwavacc_0.72544_f1_0.65833_lr_0.0000707703.pth'
 }
 
 # score 0.550 , no TTA
@@ -17,9 +18,9 @@ ckpt2 = {
     'data': 'Agriculture',
     'bands': ['NIR','RGB'],
     'nodes': (32,32),
-    'snapshot': '../ckpt/epoch_15_loss_1.03019_acc_0.83952_acc-cls_0.70245_'
-                'mean-iu_0.54833_fwavacc_0.73482_f1_0.69034_lr_0.0001076031.pth'
-
+    #'snapshot': '../ckpt/epoch_15_loss_1.03019_acc_0.83952_acc-cls_0.70245_'
+    #            'mean-iu_0.54833_fwavacc_0.73482_f1_0.69034_lr_0.0001076031.pth'
+    'snapshot': '../ckpt/epoch_13_loss_1.03088_acc_0.83075_acc-cls_0.66848_mean-iu_0.53545_fwavacc_0.71870_f1_0.67404_lr_0.0001119694.pth'
 }
 
 

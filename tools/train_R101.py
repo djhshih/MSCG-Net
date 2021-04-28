@@ -19,7 +19,7 @@ from lib.utils.lr import init_params_lr
 from lib.utils.measure import *
 from lib.utils.visual import *
 
-from tools.model import load_model
+from model import load_model
 
 cudnn.benchmark = True
 
@@ -47,6 +47,7 @@ train_args.lr_decay = 0.9
 train_args.max_iter = 1e8
 
 train_args.snapshot = ''
+#train_args.snapshot = 'epoch_13_loss_1.03088_acc_0.83075_acc-cls_0.66848_mean-iu_0.53545_fwavacc_0.71870_f1_0.67404_lr_0.0001119694.pth'
 train_args.print_freq = 100
 train_args.save_pred = False
 
@@ -90,7 +91,7 @@ def main():
     # first train with Adam for around 10 epoch, then manually change to SGD
     # to continue the rest train, Note: need resume train from the saved snapshot
     base_optimizer = optim.Adam(params, amsgrad=True)
-    # base_optimizer = optim.SGD(params, momentum=train_args.momentum, nesterov=True)
+    #base_optimizer = optim.SGD(params, momentum=train_args.momentum, nesterov=True)
     optimizer = Lookahead(base_optimizer, k=6)
     lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, 60, 1.18e-6)
 
