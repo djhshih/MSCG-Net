@@ -1,4 +1,4 @@
-albumentations==0.4.0
+albumentations==0.5.2
 matplotlib==2.2.2
 numpy==1.15.4
 pandas==0.24.2
@@ -31,8 +31,10 @@ six==1.11.0
 sympy==1.4
 tensorboardX==1.9
 toolz==0.10.0
-torch==1.4.0
+pytorch==1.7.1
 torchfile==0.1.0
-torchnet==0.0.4
-torchvision==0.4.1a0+d94043a
+torchvision==0.8.2
+torchaudio==0.7.2
+cudatoolkit=10.1.243
+#torchnet==0.0.4
 tqdm==4.36.1
