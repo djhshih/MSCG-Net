@@ -12,6 +12,14 @@ ckpt1 = {
     'snapshot': '../ckpt/epoch_17_loss_0.93258_acc_0.83161_acc-cls_0.66267_mean-iu_0.51705_fwavacc_0.72544_f1_0.65833_lr_0.0000707703.pth'
 }
 
+ckpt1u = {
+    'net': 'MSCG-Rx50',
+    'data': 'Agriculture',
+    'bands': ['NIR','RGB'],
+    'nodes': (32,32),
+    'snapshot': '../ckpt/epoch_62_loss_1.24670_acc_0.74541_acc-cls_0.41243_mean-iu_0.31532_fwavacc_0.59888_f1_0.43747_lr_0.0000014140.pth'
+}
+
 # score 0.550 , no TTA
 ckpt2 = {
     'net': 'MSCG-Rx101',
@@ -23,6 +31,13 @@ ckpt2 = {
     'snapshot': '../ckpt/epoch_13_loss_1.03088_acc_0.83075_acc-cls_0.66848_mean-iu_0.53545_fwavacc_0.71870_f1_0.67404_lr_0.0001119694.pth'
 }
 
+ckpt2u = {
+    'net': 'MSCG-Rx101',
+    'data': 'Agriculture',
+    'bands': ['NIR','RGB'],
+    'nodes': (32,32),
+    'snapshot': '../ckpt/epoch_44_loss_0.73879_acc_0.70490_acc-cls_0.30367_mean-iu_0.10680_fwavacc_0.66691_f1_0.45351_lr_0.0000218068.pth'
+}
 
 ckpt3 = {
     'net': 'MSCG-Rx101',
