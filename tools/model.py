@@ -65,7 +65,9 @@ class rx50_gcn_3head_4channel(nn.Module):
         x_size = x.size()
 
         gx = self.layer3(self.layer2(self.layer1(self.layer0(x))))
+        # assumption: diagonal symmetry
         gx90 = gx.permute(0, 1, 3, 2)
+        # assumption: left-right symmetry
         gx180 = gx.flip(3)
         B, C, H, W = gx.size()
 
@@ -82,6 +84,7 @@ class rx50_gcn_3head_4channel(nn.Module):
         if self.aux_pred:
             gx90 += z_hat
         gx90 = gx90.reshape(B, self.num_cluster, self.node_size[1], self.node_size[0])
+        # reverse flipping
         gx90 = gx90.permute(0, 1, 3, 2)
         gx += gx90
 
@@ -91,6 +94,7 @@ class rx50_gcn_3head_4channel(nn.Module):
         if self.aux_pred:
             gx180 += z_hat
         gx180 = gx180.reshape(B, self.num_cluster, self.node_size[0], self.node_size[1])
+        # reverse flipping
         gx180 = gx180.flip(3)
         gx += gx180
 
@@ -148,7 +152,9 @@ class rx101_gcn_3head_4channel(nn.Module):
         x_size = x.size()
 
         gx = self.layer3(self.layer2(self.layer1(self.layer0(x))))
+        # assumption: diagonal symmetry
         gx90 = gx.permute(0, 1, 3, 2)
+        # assumption: left-right symmetry
         gx180 = gx.flip(3)
 
         B, C, H, W = gx.size()
