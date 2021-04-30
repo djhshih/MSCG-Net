@@ -30,7 +30,8 @@ train_args = agriculture_configs(net_name='MSCG-Rx101',
                                  data='Agriculture',
                                  bands_list=['NIR', 'RGB'],
                                  kf=0, k_folder=0,
-                                 note='reproduce'
+                                 #note='reproduce'
+                                 note='pretrained_ce-loss'
                                  )
 
 train_args.input_size = [512, 512]
@@ -84,7 +85,8 @@ def main():
     train_loader = DataLoader(dataset=train_set, batch_size=train_args.train_batch, num_workers=0, shuffle=True)
     val_loader = DataLoader(dataset=val_set, batch_size=train_args.val_batch, num_workers=0)
 
-    criterion = ACW_loss().cuda()
+    #criterion = ACW_loss().cuda()
+    criterion = torch.nn.CrossEntropyLoss(ignore_index=255).cuda()
 
     params = init_params_lr(net, train_args)
 
