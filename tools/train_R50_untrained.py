@@ -29,7 +29,8 @@ train_args = agriculture_configs(net_name='MSCG-Rx50',
                                  data='Agriculture',
                                  bands_list=['NIR', 'RGB'],
                                  kf=0, k_folder=0,
-                                 note='untrained_ACW_loss2'
+                                 #note='untrained_ACW_loss2'
+                                 note='untrained_ce-loss'
                                  )
 
 train_args.input_size = [512, 512]
@@ -46,6 +47,7 @@ train_args.lr_decay = 0.9
 train_args.max_iter = 1e8
 
 train_args.snapshot = ''
+#train_args.snapshot = 'epoch_26_loss_1.41701_acc_0.67519_acc-cls_0.34707_mean-iu_0.26590_fwavacc_0.50918_f1_0.38539_lr_0.0000527714.pth'
 
 train_args.print_freq = 100
 train_args.save_pred = False
@@ -84,7 +86,9 @@ def main():
     val_loader = DataLoader(dataset=val_set, batch_size=train_args.val_batch, num_workers=0)
 
 
-    criterion = ACW_loss().cuda()
+    #criterion = ACW_loss().cuda()
+    #criterion = CE_loss().cuda()
+    criterion = torch.nn.CrossEntropyLoss(ignore_index=255).cuda()
 
     params = init_params_lr(net, train_args)
     # first train with Adam for around 10 epoch, then manually change to SGD

@@ -30,7 +30,8 @@ train_args = agriculture_configs(net_name='MSCG-Rx101',
                                  data='Agriculture',
                                  bands_list=['NIR', 'RGB'],
                                  kf=0, k_folder=0,
-                                 note='untrained'
+                                 #note='untrained'
+                                 note='untrained_ce-loss'
                                  )
 
 train_args.input_size = [512, 512]
@@ -47,6 +48,7 @@ train_args.lr_decay = 0.9
 train_args.max_iter = 1e8
 
 train_args.snapshot = ''
+#train_args.snapshot = 'epoch_20_loss_0.73995_acc_0.73090_acc-cls_0.46818_mean-iu_0.10630_fwavacc_0.72170_f1_0.43499_lr_0.0000946918.pth'
 train_args.print_freq = 100
 train_args.save_pred = False
 
@@ -83,7 +85,8 @@ def main():
     train_loader = DataLoader(dataset=train_set, batch_size=train_args.train_batch, num_workers=0, shuffle=True)
     val_loader = DataLoader(dataset=val_set, batch_size=train_args.val_batch, num_workers=0)
 
-    criterion = ACW_loss().cuda()
+    #criterion = ACW_loss().cuda()
+    criterion = torch.nn.CrossEntropyLoss(ignore_index=255).cuda()
 
     params = init_params_lr(net, train_args)
 
