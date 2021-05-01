@@ -16,10 +16,13 @@ import itertools
 test_root = '/home/dshih/data/kaggle/vision-for-agriculture/data/test'
 
 #output_path = os.path.join('../submission', 'results_ckpt1_ckpt2_tta')
-output_path = os.path.join('../submission', 'results_ckpt1')
+#output_path = os.path.join('../submission', 'results_ckpt1c_ckpt2c_tta')
+#output_path = os.path.join('../submission', 'results_ckpt1c_ckpt2c_tta2')
+#output_path = os.path.join('../submission', 'results_ckpt1')
 #output_path = os.path.join('../submission', 'results_ckpt2')
 #output_path = os.path.join('../submission', 'results_ckpt2u')
 #output_path = os.path.join('../submission', 'results_ckpt1u_ckpt2u_tta')
+output_path = os.path.join('../submission', 'results_ckpt1ucb_ckpt2ucb_tta')
 
 def main():
     check_mkdir(output_path)
@@ -34,11 +37,17 @@ def main():
     #nets.append(net2)
     # nets.append(net3)
 
-    nets.append(get_net(ckpt1))
+    #nets.append(get_net(ckpt1))
     #nets.append(get_net(ckpt2))
+
+    #nets.append(get_net(ckpt1c))
+    #nets.append(get_net(ckpt2c))
 
     #nets.append(get_net(ckpt1u))
     #nets.append(get_net(ckpt2u))
+
+    nets.append(get_net(ckpt1ucb))
+    nets.append(get_net(ckpt2ucb))
 
     # ckpt1 + ckpt2, test score 0.599,
     # ckpt1 + ckpt2 + ckpt3, test score 0.608

@@ -38,8 +38,10 @@ train_args.input_size = [512, 512]
 train_args.scale_rate = 1.  # 256./512.  # 448.0/512.0 #1.0/1.0
 train_args.val_size = [512, 512]
 train_args.node_size = (32, 32)
-train_args.train_batch = 7
-train_args.val_batch = 7
+#train_args.train_batch = 7
+#train_args.val_batch = 7
+train_args.train_batch = 30
+train_args.val_batch = 30
 
 train_args.lr = 2.18e-4/np.sqrt(3)
 train_args.weight_decay = 2e-5

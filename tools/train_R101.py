@@ -38,8 +38,10 @@ train_args.input_size = [512, 512]
 train_args.scale_rate = 1.  # 256./512.  # 448.0/512.0 #1.0/1.0
 train_args.val_size = [512, 512]
 train_args.node_size = (32, 32)
-train_args.train_batch = 7
-train_args.val_batch = 7
+#train_args.train_batch = 7
+#train_args.val_batch = 7
+train_args.train_batch = 30
+train_args.val_batch = 30
 
 train_args.lr = 2.18e-4/np.sqrt(3)
 train_args.weight_decay = 2e-5
@@ -47,8 +49,10 @@ train_args.weight_decay = 2e-5
 train_args.lr_decay = 0.9
 train_args.max_iter = 1e8
 
-train_args.snapshot = ''
+#train_args.snapshot = ''
 #train_args.snapshot = 'epoch_13_loss_1.03088_acc_0.83075_acc-cls_0.66848_mean-iu_0.53545_fwavacc_0.71870_f1_0.67404_lr_0.0001119694.pth'
+train_args.snapshot = 'epoch_10_loss_0.40853_acc_0.84037_acc-cls_0.68390_mean-iu_0.50684_fwavacc_0.73516_f1_0.63896_lr_0.0001175102.pth'
+
 train_args.print_freq = 100
 train_args.save_pred = False
 
@@ -92,8 +96,8 @@ def main():
 
     # first train with Adam for around 10 epoch, then manually change to SGD
     # to continue the rest train, Note: need resume train from the saved snapshot
-    base_optimizer = optim.Adam(params, amsgrad=True)
-    #base_optimizer = optim.SGD(params, momentum=train_args.momentum, nesterov=True)
+    #base_optimizer = optim.Adam(params, amsgrad=True)
+    base_optimizer = optim.SGD(params, momentum=train_args.momentum, nesterov=True)
     optimizer = Lookahead(base_optimizer, k=6)
     lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, 60, 1.18e-6)
 
