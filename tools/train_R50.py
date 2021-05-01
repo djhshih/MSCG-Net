@@ -29,15 +29,18 @@ train_args = agriculture_configs(net_name='MSCG-Rx50',
                                  data='Agriculture',
                                  bands_list=['NIR', 'RGB'],
                                  kf=0, k_folder=0,
-                                 note='reproduce_ACW_loss2_adax'
+                                 #note='reproduce_ACW_loss2_adax'
+                                 note='pretrained_ce-loss'
                                  )
 
 train_args.input_size = [512, 512]
 train_args.scale_rate = 1.  # 256./512.  # 448.0/512.0 #1.0/1.0
 train_args.val_size = [512, 512]
 train_args.node_size = (32, 32)
-train_args.train_batch = 10
-train_args.val_batch = 10
+#train_args.train_batch = 10
+#train_args.val_batch = 10
+train_args.train_batch = 42
+train_args.val_batch = 42
 
 train_args.lr = 1.5e-4 / np.sqrt(3)
 train_args.weight_decay = 2e-5
@@ -45,8 +48,9 @@ train_args.weight_decay = 2e-5
 train_args.lr_decay = 0.9
 train_args.max_iter = 1e8
 
-train_args.snapshot = ''
+#train_args.snapshot = ''
 #train_args.snapshot = 'epoch_17_loss_0.93258_acc_0.83161_acc-cls_0.66267_mean-iu_0.51705_fwavacc_0.72544_f1_0.65833_lr_0.0000707703.pth'
+train_args.snapshot = 'epoch_6_loss_0.43818_acc_0.83294_acc-cls_0.63885_mean-iu_0.47672_fwavacc_0.72584_f1_0.60890_lr_0.0000845121.pth'
 
 train_args.print_freq = 100
 train_args.save_pred = False
@@ -85,13 +89,14 @@ def main():
     val_loader = DataLoader(dataset=val_set, batch_size=train_args.val_batch, num_workers=0)
 
 
-    criterion = ACW_loss().cuda()
+    #criterion = ACW_loss().cuda()
+    criterion = torch.nn.CrossEntropyLoss(ignore_index=255).cuda()
 
     params = init_params_lr(net, train_args)
     # first train with Adam for around 10 epoch, then manually change to SGD
     # to continue the rest train, Note: need resume train from the saved snapshot
-    base_optimizer = optim.Adam(params, amsgrad=True)
-    #base_optimizer = optim.SGD(params, momentum=train_args.momentum, nesterov=True)
+    #base_optimizer = optim.Adam(params, amsgrad=True)
+    base_optimizer = optim.SGD(params, momentum=train_args.momentum, nesterov=True)
     optimizer = Lookahead(base_optimizer, k=6)
     # optimizer = AdaX(params)
 
